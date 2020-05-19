@@ -33,7 +33,7 @@ at Outputdir/SLICS_IC_LOS<nIC>_Nres<Nres>_MAS<MAS>.dat
 
 Example:
 
-./get_dens_field.exe SLICS_IC 1025 1 256 Output
+./get_dens_field.exe -r SLICS_IC 1025 1 256 Output
 
 This reads the 64 files SLICS_IC/LOS1025/xv*.ic 
 and geneates a file Outputdir/SLICS_IC_LOS1025_Nres256_MAS0.dat

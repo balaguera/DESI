@@ -306,13 +306,14 @@ void getDensity_TSC(ULONG N1, ULONG N2, ULONG N3,real_prec L1, real_prec L2, rea
 
 void getDensity_CIC(ULONG N1, ULONG N2, ULONG N3,real_prec L1, real_prec L2, real_prec L3, real_prec d1, real_prec d2, real_prec d3, real_prec min1, real_prec min2, real_prec min3,const vector<real_prec>&xp, const vector<real_prec>&yp, const vector<real_prec> &zp, vector<real_prec>&delta)
 {
+// This function has been originally provided by F-S Kitaura. fskitaura@iac.es
 #ifndef  _GET_INTERPOLATED_FIELDS_FROM_SEVERAL_BIN_FILES_
 #ifdef USE_OMP
 #pragma omp parallel for
 #endif
   for (ULONG i=0;i<delta.size(); i++)
     delta[i]= 0.;
-#endif  
+#endif
 
 
   ULONG count_previous=0;

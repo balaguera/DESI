@@ -565,7 +565,7 @@ int main(int argc, char *argv[]){
 	  string sMAS;
 	  switch(MAS){case(0):sMAS="NGP";break; case(1):sMAS="CIC";break; case(2):sMAS="TSC";break; case(3):sMAS="PCS";break;}
 	  cout<<"Getting IC on a mesh with size "<<Nres<<"³ using Mass Assignment Scheme "<<sMAS<<endl;
-	  string path=path_ic+to_string(nIC)+"/";
+          string path=path_ic+"LOS"+to_string(nIC)+"/";
 
 	  ULONG N_sub_boxes = pow(Nres_sim,3);
 	  real_prec Lside_sub = Lside_sim/static_cast<real_prec>(Nres_sim);

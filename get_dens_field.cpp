@@ -19,11 +19,8 @@
 #include <numeric>
 #include <algorithm>
 #include <omp.h>
-
 #include <unistd.h>
-
 using namespace std;
-
 #define USE_OMP
 #define MAX_MAS_DEG static_cast<int>(3)
 #define MAX_MAS_DEG_PSC static_cast<int>(4)
@@ -37,19 +34,10 @@ using namespace std;
 #define Nres_sim static_cast<int>(4)  //Number  of sub-cells (per dim) in which the simulation volume has ben divided
 #define Lside_sim static_cast<real_prec>(3072.0)  //Lenght of simulation volume
 #define Lside static_cast<real_prec>(505.0)  //Comoving lenght (in Mpc/h) of cosmological volume
-
-
 #define column_x static_cast<int>(0)
 #define column_y static_cast<int>(1)
 #define column_z static_cast<int>(2)
 #define Ncolumns static_cast<int>(6)  // Number of properties of IC (x,y,z,vx,vy,vz)
-#ifdef _GET_INTERPOLATED_FIELD_FROM_HALO_CAT_
-#undef _GET_INTERPOLATED_FIELDS_FROM_SEVERAL_BIN_FILES_
-#endif
-
-
-
-
 // **********************************************************************************************************************
 inline ULONG index_3d(int i, int j, int k, int Nj, int Nk)
 {

@@ -471,24 +471,7 @@ void read_bin_file(string input_file,  int Nbytes_header, int Nbytes_data, int &
   input.close();
 }
 
-// ***************************************************************************************************************************************************************
-void read_bin_array(string input_file, vector<real_prec>&out)
-{
-  cout<<"Reading input file "<<input_file<<endl;
-  ifstream input(input_file.c_str(), ios::binary| ios::in);
-  vector<float>prop;
-  while(!input.eof())
-    {
-      float data_cat;
-      input.read((char *)&data_cat,sizeof(float));
-      prop.push_back(data_cat);
-    }
-  for(ULONG i=0;i<out.size();++i)
-      out[i]=static_cast<real_prec>(prop[i]);
-  prop.clear();prop.shrink_to_fit();
 
-  input.close();
-}
 
 // ***************************************************************************************************************************************************************
 void write_to_binary(string FNAME, vector<real_prec>&out)

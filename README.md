@@ -1,7 +1,7 @@
 # DESI
 
 
-This code reads binary files with SLICS IC and intepolate to a mesh.
+This c++ code reads binary files with SLICS IC and intepolate to a mesh.
 balaguera@iac.es 2020
 
 Compile with make file:

@@ -499,8 +499,8 @@ int main(int argc, char *argv[]){
           cout<<"balaguera@iac.es 2020"<<endl;
           cout<<endl;
           cout<<"Input parameter are:"<<endl;
-          cout<<"1 -> <Path>: Path to the IC folder"<<endl;
-          cout<<"2 -> <nIC>: Number x of the SLAC realization."<<endl;
+          cout<<"1 -> <Path>: Path to the IC folder, e.g, /global/cscratch1/sd/jharno/DESI/IC/"<<endl;
+          cout<<"2 -> <nIC>: Number x of the SLAC realization in path <Path> with the prefix LOS (e.g 1002, 986 etc )"<<endl;
           cout<<"3 -> <MAS>: Interpolation scheme: 0 (NGP), 1 (CIC), 2 (TSC), 3 (PCS)"<<endl;
           cout<<"4 -> <Nres>: Number of cells per dimention (e.g. 256 for a 256³ mesh)"<<endl;
           cout<<"5 -> <Outputdir>: Name of output directory "<<endl;

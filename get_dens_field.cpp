@@ -511,7 +511,7 @@ int main(int argc, char *argv[]){
           cout<<endl;
       }
 
-      else if(temp=='r') // Run cosmicatlas
+      else if(temp=='r')
         {
 	  if(argc<5){
             cout<<RED<<"Error: code expects 5 parameters. Only "<<argc-1<<" provided."<<RESET<<endl;

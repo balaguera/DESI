@@ -1,10 +1,5 @@
 /* Code to read IC's from the SLIC simulation. Andrés Balaguera-Antolínez IAC 2020 */
 
-
-// This option is only available if FFTW is propery working
-
-//#define USE_SUPERSAMPLING
-
 #include <ctime>
 #include <cmath>
 #include <cctype>
@@ -59,19 +54,20 @@ void index2coords(int N, int index, int  &XG, int &YG, int &ZG )
 // **********************************************************************************************************************
 inline real_prec MAS_TSC(real_prec x)
 {
-  x=fabs(x);
+  real_prec y=fabs(x);
   real_prec ans;
-  if(x<0.5)
+  if(y<0.5)
       ans= (0.75-x*x);
-  if(x>=0.5 && x<1.5)
-  {
-    real_prec r = 1.5 - x;
-    r *= r;
-    ans= (0.5*r);
-  }
-    else
-      ans= 0;
-    return ans;
+  else if(y>=0.5 && y<1.5)
+    {
+      real_prec r = 1.5 - y;
+      r *= r;
+      ans= (0.5*r);
+    }
+  else
+    ans= 0.;
+  
+  return ans;
 }
 
 
@@ -119,9 +115,9 @@ void getDensity_PCS(ULONG N1, ULONG N2, ULONG N3,real_prec L1, real_prec L2, rea
       if(xpos>=L1)xpos-=L1;
       if(ypos>=L2)ypos-=L2;
       if(zpos>=L3)zpos-=L3;
-      int xc = static_cast<ULONG>(floor((xpos-min1)*rdelta_x)); // indices of the cell of the particle
-      int yc = static_cast<ULONG>(floor((ypos-min2)*rdelta_y));
-      int zc = static_cast<ULONG>(floor((zpos-min3)*rdelta_z));
+      ULONG xc = static_cast<ULONG>(floor((xpos-min1)*rdelta_x)); // indices of the cell of the particle
+      ULONG yc = static_cast<ULONG>(floor((ypos-min2)*rdelta_y));
+      ULONG zc = static_cast<ULONG>(floor((zpos-min3)*rdelta_z));
       xc = static_cast<ULONG>(fmod(real_prec(xc),real_prec(N1)));
       yc = static_cast<ULONG>(fmod(real_prec(yc),real_prec(N2)));
       zc = static_cast<ULONG>(fmod(real_prec(zc),real_prec(N3)));
@@ -140,33 +136,33 @@ void getDensity_PCS(ULONG N1, ULONG N2, ULONG N3,real_prec L1, real_prec L2, rea
       real_prec xxb = deltax*(static_cast<real_prec>(xc)-0.5);
       real_prec yyb = deltay*(static_cast<real_prec>(yc)-0.5);
       real_prec zzb = deltaz*(static_cast<real_prec>(zc)-0.5);
-      int Xb=(xc==0 ? N1: xc);
-      int Yb=(yc==0 ? N2: yc);
-      int Zb=(zc==0 ? N3: zc);
-      int Xf=(xc==N1-1 ? -1: xc);
-      int Yf=(yc==N2-1 ? -1: yc);
-      int Zf=(zc==N3-1 ? -1: zc);
-      int Xbb=(xc==0 ? N1: xc);
-      int Ybb=(yc==0 ? N2: yc);
-      int Zbb=(zc==0 ? N3: zc);
+      ULONG Xb=(xc==0 ? N1: xc);
+      ULONG Yb=(yc==0 ? N2: yc);
+      ULONG Zb=(zc==0 ? N3: zc);
+      ULONG Xf=(xc==N1-1 ? -1: xc);
+      ULONG Yf=(yc==N2-1 ? -1: yc);
+      ULONG Zf=(zc==N3-1 ? -1: zc);
+      ULONG Xbb=(xc==0 ? N1: xc);
+      ULONG Ybb=(yc==0 ? N2: yc);
+      ULONG Zbb=(zc==0 ? N3: zc);
       if(xc!=0)
         Xbb=(xc==1 ? N1+1: xc);
       if(yc!=0)
        Ybb=(yc==1 ? N2+1: yc);
       if(zc!=0)
        Zbb=(zc==1 ? N3+1: zc);
-      int Xff=(xc==N1-1 ? -1: xc);
-      int Yff=(yc==N2-1 ? -1: yc);
-      int Zff=(zc==N3-1 ? -1: zc);
+      ULONG Xff=(xc==N1-1 ? -1: xc);
+      ULONG Yff=(yc==N2-1 ? -1: yc);
+      ULONG Zff=(zc==N3-1 ? -1: zc);
       if(xc!=N1-1)
          Xff=(xc==N1-2 ? -2: xc);
       if(yc!=N2-1)
         Yff=(yc==N2-2 ? -2: yc);
       if(zc!=N3-1)
         Zff=(zc==N3-2 ? -2: zc);
-      vector<int> i_idx = {Xbb-2, Xb-1, xc, Xf+1, Xff+2};
-      vector<int> j_idx = {Ybb-2, Yb-1, yc, Yf+1, Xff+2};
-      vector<int> k_idx = {Zbb-2, Zb-1, zc, Zf+1, Zff+2};
+      vector<ULONG> i_idx = {Xbb-2, Xb-1, xc, Xf+1, Xff+2};
+      vector<ULONG> j_idx = {Ybb-2, Yb-1, yc, Yf+1, Xff+2};
+      vector<ULONG> k_idx = {Zbb-2, Zb-1, zc, Zf+1, Zff+2};
       vector<real_prec> MAS_xx=
         {
           MAS_PCS((xxbb - xpos)*rdelta_x),
@@ -326,9 +322,9 @@ void getDensity_CIC(ULONG N1, ULONG N2, ULONG N3,real_prec L1, real_prec L2, rea
       if(xpos>=L1)xpos-=L1;
       if(ypos>=L2)ypos-=L2;
       if(zpos>=L3)zpos-=L3;
-      ULONG i = static_cast<ULONG>(floor((xpos-min1)/d1));
-      ULONG j = static_cast<ULONG>(floor((ypos-min2)/d2));
-      ULONG k = static_cast<ULONG>(floor((zpos-min3)/d3));
+      ULONG i = static_cast<int>(floor((xpos-min1)/d1));
+      ULONG j = static_cast<int>(floor((ypos-min2)/d2));
+      ULONG k = static_cast<int>(floor((zpos-min3)/d3));
       i = static_cast<ULONG>(fmod(real_prec(i),real_prec(N1)));
       j = static_cast<ULONG>(fmod(real_prec(j),real_prec(N2)));
       k = static_cast<ULONG>(fmod(real_prec(k),real_prec(N3)));
